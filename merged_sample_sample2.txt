@@ -1,0 +1,6 @@
+Hello world
+This is a test
+Python is cool
+Another file
+With different lines
+Python is fun
