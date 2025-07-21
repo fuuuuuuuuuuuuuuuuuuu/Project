@@ -1,39 +1,48 @@
 # Advance Programming Final Project
 
-This is the final project for the Advance Programming course. It demonstrates the use of object-oriented programming, generators, decorators, special methods, and testing in Python.
+This is the final project for the Advance Programming course. It demonstrates the use of object-oriented programming (OOP), generators, decorators, operator overloading, static/class methods, and unit testing in Python.
 
 ## Team Members
 
-* Minh Khoi Pham
-* Lingbo Kong
+- Minh Khoi Pham
+- Lingbo Kong
 
 ## Overview
 
-The project implements a custom file reading and merging system. It includes:
+This project provides a custom system to read and merge text files. It supports:
 
-* A file reader class that reads lines using a generator
-* Line filtering based on keywords
-* Operator overloading with `__add__` for merging files
-* A separate merger class for combining multiple files
-* A color output decorator using ANSI escape codes
-* Use of `@property`, `@staticmethod`, and `@classmethod`
-* Unit tests using `pytest` and fixtures
-* Clean code following best practices
+- Lazy reading of files using generators
+- Filtering lines by keyword
+- Operator overloading with `__add__` for merging two files
+- Merging multiple files via a `CustomFileMerger` class
+- Use of `@property`, `@staticmethod`, and `@classmethod`
+- ANSI color decorator with no third-party libraries
+- Unit tests using `pytest` and fixtures
+- Clean, modular, testable codebase
 
 ## Project Structure
 
 ```
-advance-programming-final/
+project-root/
 ├── src/
-│   ├── file_reader.py
-│   ├── file_merger.py
-│   └── decorators.py
+│   ├── file_reader.py         # CustomFileReader class
+│   ├── file_merger.py         # Inherits from CustomFileReader, supports multi-file merging
+│   └── utils.py               # color decorator implementation
 ├── tests/
-│   ├── test_reader.py
-│   └── test_merger.py
-├── requirements.txt
+│   └── test_file_reader.py    # Pytest test cases
+├── .gitignore
+├── LICENSE
 ├── Makefile
-└── README.md
+├── Project.code-workspace
+├── README.md
+├── requirements.txt
+├── test_run.py               # Manual demo/test script
+├── sample.txt
+├── sample2.txt
+├── new_file.txt
+├── merged_sample_another.txt
+├── merged_sample_sample2.txt
+└── merged_multi_sample.txt
 ```
 
 ## Installation
@@ -45,11 +54,11 @@ git clone https://github.com/your-username/advance-programming-final.git
 cd advance-programming-final
 ```
 
-2. Create a virtual environment:
+2. Set up the virtual environment:
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate   # On Windows: venv\Scripts\activate
 ```
 
 3. Install dependencies:
@@ -58,46 +67,62 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## How to Run Tests
+## Running Tests
 
-All unit tests are written using `pytest`. Fixtures are used to generate temporary test files.
+Tests are located in the `tests/` directory. Use `pytest` to run all tests:
 
 ```bash
 pytest
 ```
 
-## Example Usage
+Fixtures are used to generate isolated temporary files for test safety.
+
+## Example Usage (from `test_run.py`)
 
 ```python
 from src.file_reader import CustomFileReader
+from src.file_merger import CustomFileMerger
+from src.utils import deco
 
-reader = CustomFileReader("example.txt")
+# Read file
+r1 = CustomFileReader("sample.txt")
+for line in r1.line_generator():
+    print(line.strip())
 
-for line in reader.line_generator():
-    print(line)
+# Merge files using + operator
+r2 = CustomFileReader("sample2.txt")
+merged = r1 + r2
 
-filtered = reader.get_lines_containing("Python")
-print(filtered)
+# Merge multiple files
+merger = CustomFileMerger("sample.txt")
+merged_all = merger.concat_multiple(r2)
+
+# Colored output using decorator
+@deco("green")
+def success():
+    return "All tests passed!"
+
+print(success())
 ```
 
-## Decorator Example
+## Decorator Notes
 
-```python
-from src.decorators import colorize
+The `@deco(color)` decorator is defined in `utils.py`. It adds ANSI color codes to terminal output based on the given color name. No external libraries are used.
 
-@colorize("red")
-def message():
-    return "This is a red message"
+## Makefile Commands (if applicable)
 
-print(message())
+```make
+make test        # run pytest
+make clean       # remove .pyc and __pycache__
 ```
 
-Note: ANSI color codes are used; no third-party libraries are required.
+## License
+
+This project is released under the MIT License. See LICENSE for details.
 
 ## Presentation
 
-* Date: July 24, 2025
-* Format: In-class demonstration
-* Topics covered: Class design, code explanation, test results, and live run
-
+- Date: July 24, 2025
+- Format: In-class presentation
+- Topics: OOP, decorators, testing, file handling, CI-ready Python project
 
