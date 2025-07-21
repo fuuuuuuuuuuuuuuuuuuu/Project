@@ -4,8 +4,8 @@ This is the final project for the Advance Programming course. It demonstrates th
 
 ## Team Members
 
-* Philip
-* Lingbo
+* Minh Khoi Pham
+* Lingbo Kong
 
 ## Overview
 
