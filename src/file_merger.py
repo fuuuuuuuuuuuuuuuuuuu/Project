@@ -1,21 +1,21 @@
-from src.file_reader import CustomFileReader
+import os
+from file_reader import CustomFileReader
 
 class CustomFileMerger(CustomFileReader):
-    def __init__(self, filepath):
-        super().__init__(filepath)
+    """
+    Extends CustomFileReader with ability to merge multiple readers.
+    """
 
     def __str__(self):
         return f"<CustomFileMerger: {self._filepath}>"
 
     def concat_multiple(self, *readers):
         """
-        Concatenates this file + all other given reader objects into a new file.
-        Returns a new CustomFileMerger instance.
+        Concatenate this file and any number of other CustomFileReader instances.
         """
-        import os
-        basename = os.path.basename(self.filepath)
-        new_file = f"merged_multi_{basename}"
-        with open(new_file, "w") as out:
+        base = os.path.basename(self.filepath).replace(".txt", "")
+        new_file = f"merged_multi_{base}.txt"
+        with open(new_file, "w", encoding="utf-8") as out:
             out.writelines(self.line_generator())
             for reader in readers:
                 out.writelines(reader.line_generator())

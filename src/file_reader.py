@@ -1,49 +1,88 @@
+import os
+import mimetypes
+from utils import deco
+
 class CustomFileReader:
-    def __init__(self, filepath):
-        self._filepath = filepath
+    """
+    File reader that uses a generator to read lines, supports filtering,
+    merging with __add__, and factory methods.
+    """
+
+    def __init__(self, filepath: str):
+        self.filepath = filepath
 
     @property
-    def filepath(self):
+    def filepath(self) -> str:
         return self._filepath
 
     @filepath.setter
-    def filepath(self, value):
-        if not value.endswith(".txt"):
+    def filepath(self, value: str):
+        """
+        Validates that the file path is a .txt file.
+
+        Raises:
+            ValueError: If the file is not a .txt.
+        """
+        if not self.is_txt_file(value):
             raise ValueError("Only .txt files are allowed")
         self._filepath = value
 
     def line_generator(self):
-        """Yields one line at a time from the file."""
-        with open(self._filepath, "r") as file:
+        """
+        Generator that yields one line at a time from the file.
+        """
+        with open(self._filepath, "r", encoding="utf-8") as file:
             for line in file:
                 yield line
 
-    def get_lines_containing(self, keyword):
-        """Returns lines that contain a given keyword."""
+    def get_lines_containing(self, keyword: str):
+        """
+        Returns a list of lines containing the keyword.
+
+        Args:
+            keyword (str): Substring to search for.
+
+        Returns:
+            List[str]: Matching lines including newline.
+        """
         return [line for line in self.line_generator() if keyword in line]
+
+    @deco("blue")
+    def display_lines_with_keyword(self, keyword: str):
+        """
+        For demo: returns all lines containing keyword, colored blue.
+        """
+        return "".join(self.get_lines_containing(keyword))
 
     def __str__(self):
         return f"<CustomFileReader: {self._filepath}>"
-    
+
     @staticmethod
-    def is_txt_file(path):
-        """Static method to check if a file is .txt."""
-        return path.endswith(".txt")
+    def is_txt_file(path: str) -> bool:
+        """
+        Checks MIME type to confirm text/plain.
+        """
+        mime_type, _ = mimetypes.guess_type(path)
+        return mime_type == "text/plain"
 
     @classmethod
-    def from_filename(cls, filename):
-        """Class method to create reader from just a filename."""
+    def from_filename(cls, filename: str):
+        """
+        Factory method that adds .txt extension if missing.
+        """
         if not filename.endswith(".txt"):
             filename += ".txt"
         return cls(filename)
 
     def __add__(self, other):
-        """Add (concatenate) two files into a new one."""
-        import os
+        """
+        Concatenate two text files into a new file.
+        Returns a new CustomFileReader for the merged file.
+        """
         basename1 = os.path.basename(self.filepath).replace(".txt", "")
         basename2 = os.path.basename(other.filepath)
-        new_file = f"merged_{basename1}_{basename2}"
-        with open(new_file, "w") as out:
+        new_file = f"merged_{basename1}_{basename2}.txt"
+        with open(new_file, "w", encoding="utf-8") as out:
             out.writelines(self.line_generator())
             out.writelines(other.line_generator())
         return CustomFileReader(new_file)

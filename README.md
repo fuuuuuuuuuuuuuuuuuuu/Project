@@ -4,47 +4,35 @@ This is the final project for the Advance Programming course. It demonstrates th
 
 ## Team Members
 
-- Minh Khoi Pham
-- Lingbo Kong
+- Philip  
+- Lingbo
 
 ## Overview
 
 This project provides a custom system to read and merge text files. It supports:
 
-- Lazy reading of files using generators
-- Filtering lines by keyword
-- Operator overloading with `__add__` for merging two files
-- Merging multiple files via a `CustomFileMerger` class
+- A file reader class that reads lines using a generator
+- Line filtering based on keywords
+- Operator overloading with `__add__` for merging files
+- A separate merger class for combining multiple files
+- A color output decorator using ANSI escape codes
 - Use of `@property`, `@staticmethod`, and `@classmethod`
-- ANSI color decorator with no third-party libraries
 - Unit tests using `pytest` and fixtures
-- Clean, modular, testable codebase
+- Clean code following best practices
 
 ## Project Structure
 
-```
-project-root/
+advance-programming-final/
 ├── src/
-│   ├── file_reader.py         # CustomFileReader class
-│   ├── file_merger.py         # Inherits from CustomFileReader, supports multi-file merging
-│   └── utils.py               # color decorator implementation
+│ ├── file_reader.py
+│ ├── file_merger.py
+│ └── decorators.py
 ├── tests/
-│   └── test_file_reader.py    # Pytest test cases
-├── .gitignore
-├── LICENSE
-├── Makefile
-├── Project.code-workspace
-├── README.md
+│ ├── test_reader.py
+│ └── test_merger.py
 ├── requirements.txt
-├── test_run.py               # Manual demo/test script
-├── sample.txt
-├── sample2.txt
-├── new_file.txt
-├── merged_sample_another.txt
-├── merged_sample_sample2.txt
-└── merged_multi_sample.txt
-```
-
+├── Makefile
+└── README.md
 ## Installation
 
 1. Clone the repository:
@@ -58,71 +46,12 @@ cd advance-programming-final
 
 ```bash
 python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
-```
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-```
 
-## Running Tests
-
-Tests are located in the `tests/` directory. Use `pytest` to run all tests:
-
-```bash
-pytest
-```
-
-Fixtures are used to generate isolated temporary files for test safety.
-
-## Example Usage (from `test_run.py`)
-
-```python
-from src.file_reader import CustomFileReader
-from src.file_merger import CustomFileMerger
-from src.utils import deco
-
-# Read file
-r1 = CustomFileReader("sample.txt")
-for line in r1.line_generator():
-    print(line.strip())
-
-# Merge files using + operator
-r2 = CustomFileReader("sample2.txt")
-merged = r1 + r2
-
-# Merge multiple files
-merger = CustomFileMerger("sample.txt")
-merged_all = merger.concat_multiple(r2)
-
-# Colored output using decorator
-@deco("green")
-def success():
-    return "All tests passed!"
-
-print(success())
-```
-
-## Decorator Notes
-
-The `@deco(color)` decorator is defined in `utils.py`. It adds ANSI color codes to terminal output based on the given color name. No external libraries are used.
-
-## Makefile Commands (if applicable)
-
-```make
-make test        # run pytest
-make clean       # remove .pyc and __pycache__
-```
-
-## License
-
-This project is released under the MIT License. See LICENSE for details.
-
-## Presentation
-
-- Date: July 24, 2025
-- Format: In-class presentation
-- Topics: OOP, decorators, testing, file handling, CI-ready Python project
-
+How to Run Tests
+All unit tests are written using pytest. Fixtures are used to generate temporary test files.
