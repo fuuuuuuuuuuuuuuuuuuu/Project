@@ -1,0 +1,6 @@
+Line one
+Line two
+Line three with Python
+Another line
+With content
+Third file line
