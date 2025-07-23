@@ -86,3 +86,22 @@ class CustomFileReader:
             out.writelines(self.line_generator())
             out.writelines(other.line_generator())
         return CustomFileReader(new_file)
+
+if __name__ == "__main__":
+    """
+    Entry point for running a simple demo using CustomFileReader.
+    - Creates a demo text file if it doesn't exist
+    - Reads lines containing a keyword
+    - Displays them with ANSI color using a decorator
+    """
+    demo_path = "demo.txt"
+
+    if not os.path.exists(demo_path):
+        with open(demo_path, "w", encoding="utf-8") as f:
+            f.write("Line one\n")
+            f.write("Line with Python inside\n")
+            f.write("Line three\n")
+
+    reader = CustomFileReader(demo_path)
+    colored_output = reader.display_lines_with_keyword("Python")
+    print(colored_output)

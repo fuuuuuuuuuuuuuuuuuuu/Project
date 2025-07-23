@@ -3,6 +3,9 @@
 test:
 	PYTHONPATH=src pytest
 
+test-file:
+	PYTHONPATH=src pytest $(f)
+
 lint:
 	flake8 src tests
 
