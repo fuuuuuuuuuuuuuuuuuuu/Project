@@ -86,3 +86,21 @@ class CustomFileReader:
             out.writelines(self.line_generator())
             out.writelines(other.line_generator())
         return CustomFileReader(new_file)
+
+if __name__ == "__main__":
+    # Create a demo text file if it doesn't exist
+    demo_path = "demo.txt"
+    if not os.path.exists(demo_path):
+        with open(demo_path, "w", encoding="utf-8") as f:
+            f.write("Line one\n")
+            f.write("Line with Python inside\n")
+            f.write("Line three\n")
+
+    # Use your class
+    reader = CustomFileReader(demo_path)
+    
+    # This method is decorated with @deco("blue") and will return colored text
+    colored_output = reader.display_lines_with_keyword("Python")
+    
+    # Show it in terminal
+    print(colored_output)
