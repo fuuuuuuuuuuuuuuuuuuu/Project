@@ -1,4 +1,3 @@
-````markdown
 # Advanced Programming Final Project
 
 This final exam project for the Advanced Programming course demonstrates key Python concepts and best practices through a file-reading and merging tool.
@@ -16,12 +15,12 @@ This final exam project for the Advanced Programming course demonstrates key Pyt
 - **Inheritance & multi-file merging**: `CustomFileMerger` extends `CustomFileReader` and adds `concat_multiple()` to merge any number of files.
 - **ANSI color decorator**: `@deco(color)` adds colored output to demonstration methods without external packages.
 - **OOP practices**: Uses `@property` for getters/setters, `@staticmethod` for utilities, and `@classmethod` as a named constructor.
-- **Unit testing**: Four pytest tests with fixtures ensure each feature works correctly.
+- **Unit testing**: Pytest tests with fixtures ensure each feature works correctly.
 - **Continuous Integration**: GitHub Actions runs tests on every push (CI pipeline).
 
 ## Project Structure
 ```plaintext
-advance-programming-final/
+project/
 ├── src/
 │   ├── utils.py          # ANSI color decorator
 │   ├── file_reader.py    # CustomFileReader class
@@ -34,15 +33,15 @@ advance-programming-final/
 │   └── workflows/
 │       └── python-tests.yml  # GitHub Actions CI config
 └── README.md             # Project documentation
-````
+```
 
 ## Installation
 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/advance-programming-final.git
-   cd advance-programming-final
+   git clone https://github.com/your-username/advanced-programming-final.git
+   cd advanced-programming-final
    ```
 
 2. **Create and activate a virtual environment**
@@ -98,7 +97,7 @@ advance-programming-final/
 
 * **CI:**
 
-  GitHub Actions will automatically run tests on every push. Check the **Actions** tab in the repository.
+  GitHub Actions will automatically run tests on every push. Check the [Actions tab](../../actions) in the repository.
 
 ## Clean-up
 
@@ -111,5 +110,3 @@ advance-programming-final/
 ## Docstrings
 
 All classes and methods include docstrings for clarity and maintainability.
-
----
