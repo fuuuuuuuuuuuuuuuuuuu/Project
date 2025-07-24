@@ -106,3 +106,9 @@ if __name__ == "__main__":
     reader = CustomFileReader(demo_path)
     colored_output = reader.display_lines_with_keyword("Python")
     print(colored_output)
+   
+
+    reader1 = CustomFileReader(demo_path)
+    print(reader is reader1)
+    print(id(reader))
+    print(id(reader1))

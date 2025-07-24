@@ -62,3 +62,4 @@ def test_decorator_on_string():
         return 'hello'
     result = greet()
     assert result == '\x1b[92mhello\x1b[0m'
+    
