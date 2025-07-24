@@ -25,12 +25,12 @@ def test_generator_reads_lines(sample_file):
     assert list(r.line_generator()) == [
         'Line one\n',
         'Line two\n',
-        'Line three with word Python\n'
+        'Line three with Python\n'
     ]
 
 def test_keyword_filtering(sample_file):
     r = CustomFileReader(sample_file)
-    assert r.get_lines_containing('Python') == ['Line three with word Python\n']
+    assert r.get_lines_containing('Python') == ['Line three with Python\n']
 
 def test_add_creates_combined_file(tmp_path, sample_file, another_file):
     r1 = CustomFileReader(sample_file)
