@@ -80,12 +80,13 @@ class CustomFileReader:
         Returns a new CustomFileReader for the merged file.
         """
         basename1 = os.path.basename(self.filepath).replace(".txt", "")
-        basename2 = os.path.basename(other.filepath)
+        basename2 = os.path.basename(other.filepath).replace(".txt", "")
         new_file = f"merged_{basename1}_{basename2}.txt"
         with open(new_file, "w", encoding="utf-8") as out:
             out.writelines(self.line_generator())
             out.writelines(other.line_generator())
         return CustomFileReader(new_file)
+
 
 if __name__ == "__main__":
     """
@@ -99,7 +100,7 @@ if __name__ == "__main__":
     if not os.path.exists(demo_path):
         with open(demo_path, "w", encoding="utf-8") as f:
             f.write("Line one\n")
-            f.write("Line with Python inside\n")
+            f.write("Blue line with word Python inside\n")
             f.write("Line three\n")
 
     reader = CustomFileReader(demo_path)

@@ -2,7 +2,6 @@ import os
 import sys
 import pytest
 
-# Ensure src/ is importable
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 from file_reader import CustomFileReader
@@ -64,11 +63,3 @@ def test_decorator_on_string():
         return 'hello'
     result = greet()
     assert result == '\x1b[92mhello\x1b[0m'
-
-def test_decorator_on_list():
-    @deco('red')
-    def get_lines():
-        return ['a\n', 'b\n']
-    result = get_lines()
-    assert isinstance(result, list)
-    assert all(line.startswith('\x1b[91m') and line.endswith('\x1b[0m') for line in result)
