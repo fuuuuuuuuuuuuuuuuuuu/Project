@@ -20,7 +20,7 @@ This final exam project for the Advanced Programming course demonstrates key Pyt
 
 ## Project Structure
 ```plaintext
-project/
+Project/
 ├── src/
 │   ├── utils.py          # ANSI color decorator
 │   ├── file_reader.py    # CustomFileReader class
