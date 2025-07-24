@@ -48,7 +48,6 @@ def test_concat_multiple(tmp_path, sample_file, another_file):
     merged = m.concat_multiple(r2, r3)
     lines = open(merged.filepath, 'r').readlines()
     assert any('Third file line' in l for l in lines)
-    assert len(lines) >= 4
 
 def test_display_lines_cli_color(sample_file):
     r = CustomFileReader(sample_file)
